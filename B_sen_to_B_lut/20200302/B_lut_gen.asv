@@ -1,0 +1,25 @@
+clear;
+clc;
+%1초에 데이터 100개 받음
+%2초씩 1번코일~ 전류제어 10A
+%Y Z 값은 부호가 반대로 되어있음
+
+cont_I = 10; %A
+
+P_C0 = load('00_00_00_(X_Y_Z).csv');
+P_C1 = load('00_00_20_(X_Y_Z).csv');
+P_C2 = load('00_20_00_(X_Y_Z).csv');
+P_C3 = load('00_20_20_(X_Y_Z).csv');
+P_C4 = load('20_00_00_(X_Y_Z).csv');
+P_C5 = load('20_00_20_(X_Y_Z).csv');
+P_C6 = load('20_20_00_(X_Y_Z).csv');
+P_C7 = load('20_20_20_(X_Y_Z).csv');
+
+P_temp = P_C0/cont_I;
+B_act_temp = zeros(3,8);
+
+for i=1:8
+B_act_temp(:,i) = [mean(P_temp(-125+200*i:-75+200*i,2)); -mean(P_temp(-125+200*i:-75+200*i,3)); -mean(P_temp(-125+200*i:-75+200*i,4))];
+end
+
+save(B_act_00_00_00.mat,B_act
